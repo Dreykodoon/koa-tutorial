@@ -1,9 +1,16 @@
 const Koa = require('koa');
-const app = new Koa();
+const Router = require('koa-router');
 
-app.use(async ctx => {
+const app = new Koa();
+const router = new Router();
+
+router.get('/', (ctx, next) => {
 	ctx.body = 'Hello World';
 });
+
+app
+	.use(router.routes())
+	.use(router.allowedMethods());
 
 const port = 6001;
 
