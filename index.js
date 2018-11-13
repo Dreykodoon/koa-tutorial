@@ -1,12 +1,18 @@
 const Koa = require('koa');
 const Router = require('koa-router');
+const UserDAO = require('./src/UserDAO');
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/', (ctx, next) => {
-	ctx.body = 'Hello World';
-});
+router
+	.get('/', (ctx, next) => {
+		ctx.body = 'Hello World';
+	})
+	.get('/user/:name', (ctx, next) => {
+		const { name } = ctx.params;
+		ctx.body = UserDAO.userExists(name);
+	});
 
 app
 	.use(router.routes())
