@@ -1,0 +1,10 @@
+{
+  "name": "koa-tutorial",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Mihai Cioban",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.6.2"
+  }
+}
