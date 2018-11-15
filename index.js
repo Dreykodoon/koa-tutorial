@@ -9,9 +9,20 @@ router
 	.get('/', (ctx, next) => {
 		ctx.body = 'Hello World';
 	})
+	.get('/user', (ctx, next) => {
+		ctx.body = UserDAO.getAllUsers();
+	})
 	.get('/user/:name', (ctx, next) => {
 		const { name } = ctx.params;
 		ctx.body = UserDAO.userExists(name);
+	})
+	.put('/user/:name', (ctx, next) => {
+		const { name } = ctx.params;
+		ctx.body = UserDAO.createUser(name);
+	})
+	.delete('/user/:name', (ctx, next) => {
+		const { name } = ctx.params;
+		ctx.body = UserDAO.deleteUser(name);
 	});
 
 app
