@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Mihai Cioban",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
   "dependencies": {
     "koa": "^2.6.2",
     "koa-body": "^4.0.4",
