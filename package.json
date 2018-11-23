@@ -5,7 +5,7 @@
   "author": "Mihai Cioban",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon"
+    "debug": "nodemon --inspect"
   },
   "dependencies": {
     "koa": "^2.6.2",
