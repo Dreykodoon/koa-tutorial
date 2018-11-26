@@ -4,7 +4,6 @@ const serve = require('koa-static');
 const koaBody = require('koa-body');
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 
 const users = require('./src/user/UserRoute');
 
@@ -14,12 +13,22 @@ const router = new Router();
 router.use('/user', users.routes(), users.allowedMethods());
 
 router.post('/', (ctx, next) => {
-	const file = ctx.request.files.file;
-	const reader = fs.createReadStream(file.path);
-	const fileName = file.name ? file.name : Math.random().toString();
-	const stream = fs.createWriteStream(path.join(__dirname, '/public', fileName));
-	reader.pipe(stream);
-	console.log('uploading %s -> %s', file.name, stream.path);
+	const saveFile = (file) => {
+		const reader = fs.createReadStream(file.path);
+		const fileName = file.name ? file.name : Math.random().toString();
+		const stream = fs.createWriteStream(path.join(__dirname, '/public', fileName));
+		reader.pipe(stream);
+		console.log('uploading %s -> %s', file.name, stream.path);
+	};
+
+	const files = ctx.request.files.file;
+	if (files instanceof Array) {
+		files.forEach((file) => {
+			saveFile(file);
+		})
+	} else {
+		saveFile(files);
+	}
 
 	ctx.redirect('/');
 });
