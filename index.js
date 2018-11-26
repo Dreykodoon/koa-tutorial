@@ -16,7 +16,8 @@ router.use('/user', users.routes(), users.allowedMethods());
 router.post('/', (ctx, next) => {
 	const file = ctx.request.files.file;
 	const reader = fs.createReadStream(file.path);
-	const stream = fs.createWriteStream(path.join(__dirname, '/public', file.name));
+	const fileName = file.name ? file.name : Math.random().toString();
+	const stream = fs.createWriteStream(path.join(__dirname, '/public', fileName));
 	reader.pipe(stream);
 	console.log('uploading %s -> %s', file.name, stream.path);
 
